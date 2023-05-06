@@ -59,21 +59,29 @@ int Aereo::getVel_max()
     return vel_max;
 };
 
-//Mover
+// Mover
 void Terrestre::mover()
 {
-    std::cout << "Veiculo" << " Terrestre" << " moveu" << std::endl;
+    std::cout << "Veiculo"
+              << " Terrestre"
+              << " moveu" << std::endl;
 };
 void Aquatico::mover()
 {
-    std::cout << "Veiculo" << " Aquatico" << " moveu" << std::endl;
+    std::cout << "Veiculo"
+              << " Aquatico"
+              << " moveu" << std::endl;
 };
 void Aereo::mover()
 {
-    std::cout << "Veiculo" << " Aereo" << " moveu" << std::endl;
+    std::cout << "Veiculo"
+              << " Aereo"
+              << " moveu" << std::endl;
 };
 
-void Anfibio::mover(){
+Anfibio::Anfibio(const char *nome) : Veiculo(nome), Terrestre(), Aquatico(){};
+void Anfibio::mover()
+{
     Terrestre::mover();
     Aquatico::mover();
 };
