@@ -1,6 +1,7 @@
 #include "veiculo.h"
 
 // Veiculo
+Veiculo::Veiculo(){};
 Veiculo::Veiculo(const char *nome)
 {
     this->nome = nome;
@@ -13,6 +14,7 @@ Veiculo::~Veiculo()
 };
 
 // Terrestre
+Terrestre::Terrestre() : Veiculo(){};
 Terrestre::Terrestre(const char *nome) : Veiculo(nome){};
 Terrestre::~Terrestre()
 {
@@ -29,6 +31,7 @@ int Terrestre::getCap_pass()
 };
 
 // Aquatico
+Aquatico::Aquatico() : Veiculo(){};
 Aquatico::Aquatico(const char *nome) : Veiculo(nome){};
 Aquatico::~Aquatico()
 {

@@ -58,7 +58,7 @@ public:
     };
 };
 */
-// Parte 3: Especializando as subclasses
+// Parte 3 /Parte 4 /Parte 5
 class Veiculo
 {
 protected:
@@ -67,6 +67,7 @@ protected:
 public:
     Veiculo(const char *nome);
     Veiculo();
+
     virtual ~Veiculo();
     virtual void mover() = 0;
 };
@@ -77,7 +78,7 @@ private:
     int cap_pass = 5;
 
 protected:
-    Terrestre() : Veiculo(){};
+    Terrestre();
 
 public:
     Terrestre(const char *nome);
@@ -93,7 +94,7 @@ private:
     float carga_max = 10;
 
 protected:
-    Aquatico() : Veiculo(){};
+    Aquatico();
 public:
     Aquatico(const char *nome);
     ~Aquatico();
