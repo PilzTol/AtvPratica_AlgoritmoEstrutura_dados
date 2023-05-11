@@ -8,11 +8,11 @@ class Roda
     public:
     Roda()
     {
-        std::cout << "Novo objeto construído \n";
+        std::cout << "Novo objeto construído \n" <<std::endl;
     };
     ~Roda()
     {
-        std::cout << "Objeto destruído \n";
+        std::cout << " Objeto destruído \n" <<std::endl;
     };
 };
 
@@ -31,7 +31,7 @@ class Veiculo
         };
         ~Veiculo() 
         {
-            std::cout << "Objeto destruído: " << this->nome << std::endl;
+            std::cout << " Objeto destruído: " << this->nome << std::endl;
             delete[] this->rodas;
         };
         void setNumRodas(int rodas_qtd);

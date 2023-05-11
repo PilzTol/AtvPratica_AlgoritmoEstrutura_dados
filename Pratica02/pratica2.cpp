@@ -24,6 +24,7 @@ int main(void)
 
 
     std::cout << "//////////////////////////////////////////////////////////////////" << std::endl;
+    
     // Parte 5: Herança Múltipla
     dynamic_cast<Terrestre *>(terr)->setCapacidadeMax(45);
     dynamic_cast<Aquatico *>(aqua)->setCargaMax(12.5);
@@ -32,6 +33,7 @@ int main(void)
     anfi->mover();
 
     std::cout << "//////////////////////////////////////////////////////////////////" << std::endl;
+
     // Parte 4: Trabalhando com métodos virtuais
     terr->mover();
     aqua->mover();

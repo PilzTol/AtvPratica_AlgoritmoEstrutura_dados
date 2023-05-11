@@ -66,7 +66,6 @@ protected:
 
 public:
     Veiculo(const char *nome);
-    Veiculo();
 
     virtual ~Veiculo();
     virtual void mover() = 0;
