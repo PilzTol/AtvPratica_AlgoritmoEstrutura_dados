@@ -5,9 +5,9 @@
  *      Author: ramide
  */
 
-/*
+
 #include <iostream>
-#include "pilha3.h"
+#include "pilha.h"
 
 using namespace std;
 
@@ -50,14 +50,14 @@ int polonesa(const char * exp) {
 }
 
 
-int main5() {
+int main() {
 	cout << polonesa("23+31-*") << endl;
 	cout << polonesa("93*42/-") << endl;
 
 	return 0;
 }
 
-*/
+
 
 
 

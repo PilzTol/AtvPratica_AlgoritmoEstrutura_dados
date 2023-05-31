@@ -1,41 +1,39 @@
-#include <stdexcept>
-
-template <class T>
+template <typename T>
 class Pilha {
 private:
-    T *items; // ponteiro para array de items
-    int capacidade; // capacidade da pilha
-    int topo; // posição do topo da pilha
-    
+    T* items;
+    int capacidade;
+    int topo;
+
 public:
     Pilha(int capacidade) {
         this->capacidade = capacidade;
+        this->topo = -1;
         this->items = new T[capacidade];
-        this->topo = -1; // pilha vazia
     }
-    
+
     ~Pilha() {
-        delete[] this->items;
+        delete[] items;
     }
-    
+
     void empilha(T item) {
-        if (this->topo == this->capacidade - 1) {
-            throw std::overflow_error("Estouro da pilha");
+        if (topo == capacidade - 1) {
+            throw "Estouro da pilha";
         }
-        this->topo++;
-        this->items[this->topo] = item;
+        topo++;
+        items[topo] = item;
     }
-    
+
     T desempilha() {
-        if (this->topo == -1) {
-            throw std::underflow_error("Pilha vazia");
+        if (topo == -1) {
+            throw "Pilha vazia";
         }
-        T item = this->items[this->topo];
-        this->topo--;
+        T item = items[topo];
+        topo--;
         return item;
     }
-    
+
     int tamanho() {
-        return this->topo + 1;
+        return topo + 1;
     }
 };

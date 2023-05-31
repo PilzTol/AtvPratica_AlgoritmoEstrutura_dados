@@ -12,7 +12,7 @@
 
 using namespace std;
 
-int mainF() {
+int main() {
 	Fila<int> fila(MAX);
 
 	try {
