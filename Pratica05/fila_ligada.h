@@ -68,7 +68,7 @@ public:
     }
 
     bool cheia() const override {
-        return (numItens == capacidade) && (capacidade != 0);
+        return ((numItens == capacidade) && (capacidade != 0));
     }
 
     bool vazia() const override {
