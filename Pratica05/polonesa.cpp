@@ -7,8 +7,8 @@
 
 
 #include <iostream>
-//#include "pilha_array.h"
-#include "pilha_ligada.h"
+#include "pilha_ligada.h" //Importa "pilha.h" para "pilha_array.h"
+#include "pilha_array.h"
 
 using namespace std;
 
@@ -33,21 +33,21 @@ int avalia(char token, int valorEsq, int valorDir) {
 }
 
 int polonesa(const char * exp) {
-	Pilha<int> pilha;
+	PilhaBase<int>* pilha = new PilhaLigada<int>(10);
 	while (*exp) {
 		char token = *exp;
 		if (ehOperador(token)) {
-			int valorDir = pilha.desempilha();
-			int valorEsq = pilha.desempilha();
+			int valorDir = pilha->desempilha();
+			int valorEsq = pilha->desempilha();
 			int resultado = avalia(token, valorEsq, valorDir);
-			pilha.empilha(resultado);
+			pilha->empilha(resultado);
 		} else {
 			int valor = (int)(token - '0'); //Porque token - '0'?
-			pilha.empilha(valor);
+			pilha->empilha(valor);
 		}
 		exp++;
 	}
-	return pilha.desempilha();
+	return pilha->desempilha();
 }
 
 

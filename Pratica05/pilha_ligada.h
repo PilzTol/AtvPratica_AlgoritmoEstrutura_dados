@@ -1,3 +1,5 @@
+#include "pilha.h"
+
 struct Prato
 {
     int dado;
@@ -5,21 +7,22 @@ struct Prato
 };
 
 template <typename T>
-class Pilha
+class PilhaLigada : public PilhaBase<T>
 {
 private:
     Prato *topo;
-    int valor_maximo;
+    int capacidade;
     int total_pratos;
 
 public:
-    Pilha(int valor_maximo_par = 0)
+    PilhaLigada(int valor_maximo_par = 0)
     {
         topo = nullptr;
-        valor_maximo = valor_maximo_par;
+        capacidade = valor_maximo_par;
+        total_pratos = 0;
     }
 
-    ~Pilha()
+    ~PilhaLigada()
     {
         Prato *temp;
         while (topo != nullptr)
@@ -30,27 +33,20 @@ public:
         }
     }
 
-    void empilha(T item)
+    void empilha(T item) override
     {
-        int count = 0;
-        Prato *temp = topo;
-        while (temp != nullptr)
+        if ((this->total_pratos == this->capacidade) && (this->capacidade != 0))
         {
-            count++;
-            temp = temp->next;
-        };
-        if((this->total_pratos == this->valor_maximo))
-        {
-          throw "Estouro da pilha";
-        };
+            throw "Estouro da pilha";
+        }
         Prato *newPrato = new Prato;
         newPrato->dado = item;
         newPrato->next = topo;
         topo = newPrato;
-        delete temp;
+        ++total_pratos;
     }
 
-    T desempilha()
+    T desempilha() override
     {
         if (topo == nullptr)
         {
@@ -60,10 +56,11 @@ public:
         T dado_desempilhado = topo->dado;
         topo = topo->next;
         delete temp;
+        --total_pratos;
         return dado_desempilhado;
     }
 
-    int tamanho()
+    int tamanho() override
     {
         int count = 0;
         Prato *temp = topo;
@@ -73,7 +70,6 @@ public:
             temp = temp->next;
         }
         delete temp;
-        
         return count;
     }
 };

@@ -6,73 +6,69 @@
  */
 
 #include <iostream>
-#include "fila.h"
+#include "fila_ligada.h" //Importa "fila.h" para "fila_array.h"
+#include "fila_array.h"
 
 #define MAX 100
 
 using namespace std;
-
+//Qual que é a diferença entre "." e "->"
 int main() {
-	Fila<int> fila(MAX);
+    FilaBase<int>* fila = new FilaArray<int>(MAX);
 
-	try {
-		cerr << "Testando enfileira() [normal]: ";
-		for (int i = 0; i < MAX; i++) {
-			fila.enfileira(i);
-		}
-		cerr << "OK" << endl;
-	} catch (...) {
-		cerr << "FALHOU!" << endl;
-		exit(1);
-	}
+    try {
+        cerr << "Testando enfileira() [normal]: ";
+        for (int i = 0; i < MAX; i++) {
+            fila->enfileira(i);
+        }
+        cerr << "OK" << endl;
+    } catch (...) {
+        cerr << "FALHOU!" << endl;
+        exit(1);
+    }
 
-	cerr << "Testando tamanho() [cheia]: ";
-	if (fila.tamanho() != MAX) {
-		cerr << "FALHOU (tam = " << fila.tamanho() << ")" << endl;
-		exit(1);
-	}
-	cerr << "OK" << endl;
+    cerr << "Testando tamanho() [cheia]: ";
+    if (fila->tamanho() != MAX) {
+        cerr << "FALHOU (tam = " << fila->tamanho() << ")" << endl;
+        exit(1);
+    }
+    cerr << "OK" << endl;
 
-	try {
-		cerr << "Testando enfileira() [overflow]: ";
-		fila.enfileira(MAX + 1);
-		cerr << "FALHOU!" << endl;
-		exit(1);
-	} catch (const char * ex) {
-		cerr << "OK (" << ex << ")" << endl;
-	}
+    try {
+        cerr << "Testando enfileira() [overflow]: ";
+        fila->enfileira(MAX + 1);
+        cerr << "FALHOU!" << endl;
+        exit(1);
+    } catch (const char* ex) {
+        cerr << "OK (" << ex << ")" << endl;
+    }
 
-	cerr << "Testando desenfileira() [normal]: ";
-	for (int i = 0; i < MAX; i++) {
-		if (fila.desenfileira() != i) {
-			cerr << "FALHOU em " << i << endl;
-			exit(1);
-		}
-	}
-	cerr << "OK" << endl;
+    cerr << "Testando desenfileira() [normal]: ";
+    for (int i = 0; i < MAX; i++) {
+        if (fila->desenfileira() != i) {
+            cerr << "FALHOU em " << i << endl;
+            exit(1);
+        }
+    }
+    cerr << "OK" << endl;
 
+    cerr << "Testando tamanho() [vazia]: ";
+    if (fila->tamanho() != 0) {
+        cerr << "FALHOU (tam = " << fila->tamanho() << ")" << endl;
+        exit(1);
+    }
+    cerr << "OK" << endl;
 
-	cerr << "Testando tamanho() [vazia]: ";
-	if (fila.tamanho() != 0) {
-		cerr << "FALHOU (tam = " << fila.tamanho() << ")" << endl;
-		exit(1);
-	}
-	cerr << "OK" << endl;
+    try {
+        cerr << "Testando desenfileira() [underflow]: ";
+        fila->desenfileira();
+        cerr << "FALHOU!" << endl;
+        exit(1);
+    } catch (const char* ex) {
+        cerr << "OK (" << ex << ")" << endl;
+    }
 
+    delete fila;
 
-	try {
-		cerr << "Testando desenfileira() [underflow]: ";
-		fila.desenfileira();
-		cerr << "FALHOU!" << endl;
-		exit(1);
-	} catch (const char * ex) {
-		cerr << "OK (" << ex << ")" << endl;
-	}
-
-	return 0;
+    return 0;
 }
-
-
-
-
-

@@ -1,23 +1,22 @@
 template <typename T>
-class Pilha {
+class PilhaArray : public PilhaBase<T> {
 private:
     T* items;
     int capacidade;
     int topo;
 
 public:
-    Pilha(int capacidade) {
+    PilhaArray(int capacidade) {
         this->capacidade = capacidade;
         this->topo = -1;
         this->items = new T[capacidade];
     }
     
- 
-    ~Pilha() {
+    ~PilhaArray() {
         delete[] items;
     }
 
-    void empilha(T item) {
+    void empilha(T item) override {
         if (topo == capacidade - 1) {
             throw "Estouro da pilha";
         }
@@ -25,7 +24,7 @@ public:
         items[topo] = item;
     }
 
-    T desempilha() {
+    T desempilha() override {
         if (topo == -1) {
             throw "Pilha vazia";
         }
@@ -34,7 +33,8 @@ public:
         return item;
     }
 
-    int tamanho() {
+    int tamanho() override {
         return topo + 1;
     }
 };
+
