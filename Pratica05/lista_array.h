@@ -1,39 +1,36 @@
-#include <iostream>
-#include <stdexcept>
-
 template <class T>
-class Lista {
+class ListaArray : public ListaBase<T> {
 private:
     T *itens;
     int capacidade;
     int tamanho;
 
 public:
-    Lista(int capacidade) {
+    ListaArray(int capacidade) {
         this->capacidade = capacidade;
         this->tamanho = 0;
         this->itens = new T[capacidade];
     }
 
-    ~Lista() {
+    ~ListaArray() {
         delete[] itens;
     }
 
-    void adiciona(const T &item) {
+    void adiciona(const T &item) override {
         if (tamanho == capacidade) {
             throw std::runtime_error("Lista cheia");
         }
         itens[tamanho++] = item;
     }
 
-    T pega(int idx) {
+    T pega(int idx) override {
         if (idx < 1 || idx > tamanho) {
             throw std::runtime_error("Item inválido");
         }
         return itens[idx - 1];
     }
 
-    void insere(int idx, const T &item) {
+    void insere(int idx, const T &item) override {
         if (tamanho == capacidade) {
             throw std::runtime_error("Lista cheia");
         }
@@ -47,7 +44,7 @@ public:
         tamanho++;
     }
 
-    void remove(int idx) {
+    void remove(int idx) override {
         if (idx < 1 || idx > tamanho) {
             throw std::runtime_error("Item inválido");
         }
@@ -57,14 +54,14 @@ public:
         tamanho--;
     }
 
-    void exibe() {
+    void exibe() override {
         for (int i = 0; i < tamanho; i++) {
             std::cout << itens[i] << " ";
         }
         std::cout << std::endl;
     }
 
-    int tam() {
+    int tam() override {
         return tamanho;
     }
 };

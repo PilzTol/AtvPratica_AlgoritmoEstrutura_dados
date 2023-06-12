@@ -1,47 +1,44 @@
-#include <iostream>
-#include <stdexcept>
+#include "lista.h"
 
 template <class T>
-class Lista {
+class ListaLigada : public ListaBase<T> {
 private:
     struct Item {
         T dado;
-        Item* proximo;
+        Item *proximo;
     };
 
-    Item* inicio;
+    Item *inicio;
     int tamanho;
     int capacidade;
 
 public:
-    Lista(int cap = 0) {
+    ListaLigada(int cap = 0) {
         inicio = nullptr;
         tamanho = 0;
         capacidade = cap;
-        
     }
 
-    ~Lista() {
+    ~ListaLigada() {
         while (inicio != nullptr) {
-            Item* temp = inicio;
+            Item *temp = inicio;
             inicio = inicio->proximo;
             delete temp;
         }
     }
 
-    void adiciona(const T& item) {
-         if ((this->tamanho == this->capacidade) && (this->capacidade != 0))
-        {
+    void adiciona(const T &item) override {
+        if ((tamanho == capacidade) && (capacidade != 0)) {
             throw std::runtime_error("Lista cheia");
         }
-        Item* novoItem = new Item;
+        Item *novoItem = new Item;
         novoItem->dado = item;
         novoItem->proximo = nullptr;
 
         if (inicio == nullptr) {
             inicio = novoItem;
         } else {
-            Item* atual = inicio;
+            Item *atual = inicio;
             while (atual->proximo != nullptr) {
                 atual = atual->proximo;
             }
@@ -51,12 +48,12 @@ public:
         tamanho++;
     }
 
-    T pega(int idx) {
+    T pega(int idx) override {
         if (idx < 1 || idx > tamanho) {
             throw std::runtime_error("Item inválido");
         }
 
-        Item* atual = inicio;
+        Item *atual = inicio;
         int pos = 1;
         while (pos < idx) {
             atual = atual->proximo;
@@ -66,23 +63,22 @@ public:
         return atual->dado;
     }
 
-    void insere(int idx, const T& item) {
-          if ((this->tamanho == this->capacidade) && (this->capacidade != 0))
-        {
+    void insere(int idx, const T &item) override {
+        if ((tamanho == capacidade) && (capacidade != 0)) {
             throw std::runtime_error("Lista cheia");
         }
         if (idx < 1 || idx > tamanho + 1) {
             throw std::runtime_error("Item inválido");
         }
 
-        Item* novoItem = new Item;
+        Item *novoItem = new Item;
         novoItem->dado = item;
 
         if (idx == 1) {
             novoItem->proximo = inicio;
             inicio = novoItem;
         } else {
-            Item* anterior = inicio;
+            Item *anterior = inicio;
             int pos = 1;
             while (pos < idx - 1) {
                 anterior = anterior->proximo;
@@ -95,17 +91,17 @@ public:
         tamanho++;
     }
 
-    void remove(int idx) {
+    void remove(int idx) override {
         if (idx < 1 || idx > tamanho) {
             throw std::runtime_error("Item inválido");
         }
 
-        Item* itemRemovido;
+        Item *itemRemovido;
         if (idx == 1) {
             itemRemovido = inicio;
             inicio = inicio->proximo;
         } else {
-            Item* anterior = inicio;
+            Item *anterior = inicio;
             int pos = 1;
             while (pos < idx - 1) {
                 anterior = anterior->proximo;
@@ -119,8 +115,8 @@ public:
         tamanho--;
     }
 
-    void exibe() {
-        Item* atual = inicio;
+    void exibe() override {
+        Item *atual = inicio;
         while (atual != nullptr) {
             std::cout << atual->dado << " ";
             atual = atual->proximo;
@@ -128,7 +124,7 @@ public:
         std::cout << std::endl;
     }
 
-    int tam() {
+    int tam() override {
         return tamanho;
     }
 };
