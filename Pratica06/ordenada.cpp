@@ -18,10 +18,13 @@ public:
 	}
 
 	void insere(int item) {
-		for (int i = 0; i < tamanho - 1; i++)
+		for (int i = this->capacidade - 1; i < tamanho; i--)
 		{
-			if(items[i] > )
+			if(items)
+			if(items[i] <= item)
 			{
+				items[i-1] = items[i];
+				items[i] = item;
 
 			}
 		}
