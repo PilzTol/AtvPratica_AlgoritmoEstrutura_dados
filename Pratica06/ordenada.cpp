@@ -82,7 +82,7 @@ public:
 	}
 
 private:
-	//Recursividade tem mais custo que iteração?
+	//Recursividade é mais custosa que a iteração, certo?
 	int buscaBinaria(int inicio, int final, int item) { 
 		while (inicio <= final) {
         int meio = (inicio + final) / 2;
