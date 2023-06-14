@@ -18,36 +18,41 @@ public:
     }
 
     void insere(int item) {
-        int pos = tamanho - 1;
+      int pos = tamanho - 1;
 
-        while (pos >= 0 && items[pos] > item) {
-            items[pos + 1] = items[pos];
-            pos--;
-        }
+        while (pos >= 0) {
+            if (items[pos] > item) {
+                items[pos + 1] = items[pos];
+                pos--;
+            } else {
+                break;
+            }
+    }
 
-        items[pos + 1] = item;
-        tamanho++;
+    items[pos + 1] = item;
+    tamanho = tamanho + 1;
     }
 
     void remove(int item) {
-        int pos = buscaBinaria(0, tamanho - 1, item);
-
+ 		int pos = buscaBinaria(0, tamanho - 1, item);
         if (pos != -1) {
             for (int i = pos; i < tamanho - 1; i++) {
                 items[i] = items[i + 1];
             }
 
             tamanho--;
-        }
+        } else {
+			throw "Item inexistente.";
+		}
     }
 
-    int buscaSequencial(int key) {
+    int buscaSequencial(int item) {
         for (int i = 0; i < tamanho; i++) {
-            if (items[i] == key) {
+            if (items[i] == item) {
                 return i;
             }
 
-            if (items[i] > key) {
+            if (items[i] > item) {
                 break;
             }
         }
@@ -79,21 +84,19 @@ public:
 
 private:
     int buscaBinaria(int inicio, int final, int item) {
-        if (final >= inicio) {
-            int meio = inicio + (final - inicio) / 2;
+        while (inicio <= final) {
+        int meio = (inicio + final) / 2;
 
-            if (items[meio] == item) {
-                return meio;
-            }
-
-            if (items[meio] > item) {
-                return buscaBinaria(inicio, meio - 1, item);
-            }
-
-            return buscaBinaria(meio + 1, final, item);
+        if (items[meio] == item) {
+            return meio;
+        } else if (items[meio] < item) {
+            inicio = meio + 1;
+        } else {
+            final = meio - 1;
         }
-
-        return -1;
+    }
+    
+    return -1;
     }
 };
 

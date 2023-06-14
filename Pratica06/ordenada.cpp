@@ -18,19 +18,45 @@ public:
 	}
 
 	void insere(int item) {
-		items[0] = 0;
-		for (int i = this->capacidade - 1; i < tamanho; i--)
-		{
-			
-		}
+		int posicao = tamanho - 1;
+
+    	while (posicao >= 0) {
+        	if (items[posicao] > item) {
+            	items[posicao + 1] = items[posicao];
+            	posicao--;
+       	 	} else {
+            	break;
+        	}
+    }
+		items[posicao + 1] = item;
+		tamanho++;
 	}
 
 	void remove(int item) {
-		// TODO
+		int posicao = buscaBinaria(0, tamanho - 1, item);
+        if (posicao != -1) {
+            for (int i = posicao; i < tamanho - 1; i++) {
+                items[i] = items[i + 1];
+            }
+
+            tamanho--;
+        } else {
+			throw "Item inexistente.";
+		}
 	}
 
-	int buscaSequencial(int key) {
-		// TODO
+	int buscaSequencial(int item) {
+		for (int i = 0; i < tamanho; i++) {
+            if (items[i] == item) {
+                return i;
+            }
+
+            if (items[i] > item) {
+                break;
+            }
+        }
+
+        return -1;
 	}
 
 	int buscaBinaria(int item) {
@@ -56,9 +82,21 @@ public:
 	}
 
 private:
+	//Recursividade tem mais custo que iteração?
+	int buscaBinaria(int inicio, int final, int item) { 
+		while (inicio <= final) {
+        int meio = (inicio + final) / 2;
 
-	int buscaBinaria(int inicio, int final, int item) {
-		// TODO
+        if (items[meio] == item) {
+            return meio;
+        } else if (items[meio] < item) {
+            inicio = meio + 1;
+        } else {
+            final = meio - 1;
+        }
+    }
+    
+    return -1;
 	}
 
 };
@@ -124,7 +162,7 @@ int main() {
 	cout << endl << "Testando buscas..." << endl;
 
 	cout << "- Itens presentes: ";
-
+	//Qual o porquê da escolha dos nomes das variáveis abaixo:
 	int bs10 = lista.buscaSequencial(10);
 	int bb10 = lista.buscaBinaria(10);
 
