@@ -9,7 +9,7 @@ private:
 public:
 	ListaOrdenada(int cap) {
 		this->capacidade = cap;
-		this->tamanho = cap;
+		this->tamanho = 0;
 		items = new int[cap];
 	}
 
@@ -18,15 +18,10 @@ public:
 	}
 
 	void insere(int item) {
+		items[0] = 0;
 		for (int i = this->capacidade - 1; i < tamanho; i--)
 		{
-			if(items)
-			if(items[i] <= item)
-			{
-				items[i-1] = items[i];
-				items[i] = item;
-
-			}
+			
 		}
 	}
 
