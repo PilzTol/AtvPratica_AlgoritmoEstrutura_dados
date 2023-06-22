@@ -15,7 +15,7 @@ const int MAX = 100;
 using namespace std;
 
 int main() {
-	PilhaBase<int>* pilha = new PilhaArray<int>(MAX);
+	PilhaBase<int>* pilha = new PilhaLigada<int>(MAX);
 
 
 	try {

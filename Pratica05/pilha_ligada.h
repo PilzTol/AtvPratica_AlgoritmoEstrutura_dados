@@ -1,15 +1,16 @@
 #include "pilha.h"
 
-struct Prato
-{
-    int dado;
-    Prato *next;
-};
+
 
 template <typename T>
 class PilhaLigada : public PilhaBase<T>
 {
 private:
+    struct Prato
+{
+    T dado;
+    Prato *next;
+};
     Prato *topo;
     int capacidade;
     int total_pratos;
@@ -60,6 +61,7 @@ public:
         return dado_desempilhado;
     }
 
+//Usar total pratos
     int tamanho() override
     {
         int count = 0;

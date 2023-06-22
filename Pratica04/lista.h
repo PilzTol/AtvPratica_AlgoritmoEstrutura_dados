@@ -21,24 +21,24 @@ public:
 
     void adiciona(const T &item) {
         if (tamanho == capacidade) {
-            throw std::runtime_error("Lista cheia");
+            throw ("Lista cheia");
         }
         itens[tamanho++] = item;
     }
 
     T pega(int idx) {
         if (idx < 1 || idx > tamanho) {
-            throw std::runtime_error("Item inválido");
+            throw ("Item inválido");
         }
         return itens[idx - 1];
     }
 
     void insere(int idx, const T &item) {
         if (tamanho == capacidade) {
-            throw std::runtime_error("Lista cheia");
+            throw ("Lista cheia");
         }
         if (idx < 1 || idx > tamanho + 1) {
-            throw std::runtime_error("Item inválido");
+            throw ("Item inválido");
         }
         for (int i = tamanho; i >= idx; i--) {
             itens[i] = itens[i - 1];
@@ -49,7 +49,7 @@ public:
 
     void remove(int idx) {
         if (idx < 1 || idx > tamanho) {
-            throw std::runtime_error("Item inválido");
+            throw ("Item inválido");
         }
         for (int i = idx - 1; i < tamanho - 1; i++) {
             itens[i] = itens[i + 1];

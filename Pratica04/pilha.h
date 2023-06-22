@@ -20,16 +20,16 @@ public:
         if (topo == capacidade - 1) {
             throw "Estouro da pilha";
         }
-        topo++;
-        items[topo] = item;
+       // topo++;
+        items[++topo] = item;
     }
 
     T desempilha() {
         if (topo == -1) {
             throw "Pilha vazia";
         }
-        T item = items[topo];
-        topo--;
+        T item = items[topo--];
+        //topo--;
         return item;
     }
 

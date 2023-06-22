@@ -22,7 +22,7 @@ void testaTamanho(ListaBase<int>& lista, const char* subcaso, int tamanho) {
 }
 
 int main() {
-    ListaBase<int>* lista = new ListaArray<int>(MAX);
+    ListaBase<int>* lista = new ListaLigada<int>(MAX);
 
     try {
         cerr << "Testando adiciona() [normal]: ";

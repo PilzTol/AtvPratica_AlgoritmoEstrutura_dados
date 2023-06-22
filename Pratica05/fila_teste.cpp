@@ -14,7 +14,7 @@
 using namespace std;
 //Qual que é a diferença entre "." e "->"
 int main() {
-    FilaBase<int>* fila = new FilaArray<int>(MAX);
+    FilaBase<int>* fila = new FilaLigada<int>(MAX);
 
     try {
         cerr << "Testando enfileira() [normal]: ";

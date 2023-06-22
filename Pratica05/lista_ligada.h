@@ -1,5 +1,6 @@
 #include "lista.h"
 
+
 template <class T>
 class ListaLigada : public ListaBase<T> {
 private:
@@ -27,9 +28,10 @@ public:
         }
     }
 
+    //Ponteiro adicional
     void adiciona(const T &item) override {
         if ((tamanho == capacidade) && (capacidade != 0)) {
-            throw std::runtime_error("Lista cheia");
+            throw ("Lista cheia");
         }
         Item *novoItem = new Item;
         novoItem->dado = item;
@@ -50,7 +52,7 @@ public:
 
     T pega(int idx) override {
         if (idx < 1 || idx > tamanho) {
-            throw std::runtime_error("Item inválido");
+            throw ("Item inválido");
         }
 
         Item *atual = inicio;
@@ -65,10 +67,10 @@ public:
 
     void insere(int idx, const T &item) override {
         if ((tamanho == capacidade) && (capacidade != 0)) {
-            throw std::runtime_error("Lista cheia");
+            throw ("Lista cheia");
         }
         if (idx < 1 || idx > tamanho + 1) {
-            throw std::runtime_error("Item inválido");
+            throw ("Item inválido");
         }
 
         Item *novoItem = new Item;
@@ -93,7 +95,7 @@ public:
 
     void remove(int idx) override {
         if (idx < 1 || idx > tamanho) {
-            throw std::runtime_error("Item inválido");
+            throw ("Item inválido");
         }
 
         Item *itemRemovido;
