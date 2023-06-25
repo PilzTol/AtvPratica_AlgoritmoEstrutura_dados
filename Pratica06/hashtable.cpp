@@ -153,7 +153,6 @@ int main() {
 	alunos.insert(9878,  "Victor");
 	alunos.insert(72365, "Pedro");
 	alunos.insert(51535, "Esmeralda");
-	alunos.remove(72365);
 
 	cout << "TABELA de Alunos: " << endl;
 	alunos.show();
