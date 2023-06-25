@@ -16,12 +16,11 @@ private:
 		T_key key;
 		T_value value;
 		Node * next;
-		Node(T_key key, T_value value) : key(key), value(value), next(NULL) {} 
-		
+		Node(T_key key, T_value value) : key(key), value(value), next(NULL) {}
 	};
 
-	Node ** data;			// Array de pontos para as cabeças das listas
-	int cap, size;			//Capacidade, Tamanho
+	Node ** data;			// Array de ponteiros para as cabeças das listas
+	int cap, size;
 	T_value notFound;		// Item default retornado caso a chave não seja encontrada
 
 public:
@@ -29,45 +28,46 @@ public:
 		this->cap = cap;
 		this->size = 0;
 		this->notFound = notFound;
-		data = new Node*[cap]; //inicializa "data" como um array de ponteiros
+		data = new Node*[cap];
 		for (int i = 0; i < cap; i++) {
-			data[i] = NULL; //Torna tudo "NULL"
+			data[i] = NULL;
 		}
 	}
 
 	~Hashtable() {
-		for (int i = 0; i < cap; i++) { //Destrutor: tanto faz 
+		for (int i = 0; i < cap; i++) {
 			while (data[i] != NULL)
-		 		__remove(data[i], data[i]->key); //Um índice e sua chave.
+		 		__remove(data[i], data[i]->key);
 		}
 		delete [] data;
 	}
 
 	/* Insere item (chave, valor) na tabela */
 	void insert(T_key key, T_value value) {
-		int indice = hash(key);
-		Node * node = data[indice];
-		// Calcular o hash da chave e o índice na tabela
-		// Pegar o ponteiro de início da lista correspondente na tabela
-		// Inserir na lista (usando o ponteiro)
-		// Incrementar quantidade de elementos (size)
-
+		int index = hash(key);
+		Node * node = data[index];
+		__insert(node, key, value);
+		data[index] = node;
+		size++;
 	}
 
 	/* Remove item da tabela usando a chave */
 	T_value remove(T_key key) {
-		// Calcular o hash da chave e o índice na tabela
-		// Pegar o ponteiro de início da lista correspondente na tabela
-		// Remover da lista (usando o ponteiro)
-		// Decrementar quantidade de elementos (size)
-
+		int index = hash(key);
+		Node * node = data[index];
+		T_value value = __remove(node, key);
+		data[index] = node;
+		if (value != notFound) {
+			size--;
+		}
+		return value;
 	}
 
 	/* Busca e retorna o valor na tabela usando a chave */
 	T_value search(T_key key) {
-		// Calcular o hash da chave e o índice na tabela
-		// Pegar o ponteiro de início da lista correspondente na tabela
-		// Buscar na lista (usando o ponteiro)
+		int index = hash(key);
+		Node * node = data[index];
+		return __search(node, key);
 	}
 
 	/* Exibe todos os itens na tabela */
@@ -85,19 +85,23 @@ public:
 
 private:
 	// FUNCOES DE ESPALHAMENTO
-	// Serão necessária funções diferentes para tipos de chaves diferentes.
+	// Serão necessárias funções diferentes para tipos de chaves diferentes.
 
 	int hash(int x) {
-		// Calcula o hash para chaves do tipo inteiro
+		return x % cap;
 	}
 
 	int hash(string key) {
-		// Calcula o hash para chaves do tipo string
+		int sum = 0;
+		for (char c : key) {
+			sum += c;
+		}
+		return sum % cap;
 	}
 
 	// FUNÇOES DE MANIPULAÇÃO DA LISTA DE ITENS
 
-	/* Exibe os items de uma posição da tabela (lista) */
+	/* Exibe os itens de uma posição da tabela (lista) */
 	void __show(Node * node) {
 		while (node != NULL) {
 			cout << "(" << node->key << ", " << node->value << ") ";
@@ -149,6 +153,7 @@ int main() {
 	alunos.insert(9878,  "Victor");
 	alunos.insert(72365, "Pedro");
 	alunos.insert(51535, "Esmeralda");
+	alunos.remove(72365);
 
 	cout << "TABELA de Alunos: " << endl;
 	alunos.show();
@@ -174,6 +179,7 @@ int main() {
 	notas.insert(string("Tereza"), 7.5);
 	notas.insert(string("Victor"), 8);
 	notas.insert(string("Mario"), 4);
+	notas.remove("Larissa"); //Testando "remove"
 
 	cout << "TABELA de Notas: " << endl;
 	notas.show();
@@ -185,7 +191,5 @@ int main() {
 	cout << "Pedro: "  << notas.search(string("Pedro")) << endl;
 	cout << "Maria: "  << notas.search(string("Maria")) << endl;
 	cout << "Mario: "  << notas.search(string("Mario")) << endl;
+	cout << "Larissa: "  << notas.search(string("Larissa")) << endl; //Testando "remove"
 }
-
-
-
